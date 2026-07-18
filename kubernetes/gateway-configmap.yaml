@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+
+metadata:
+  name: gateway-config
+
+data:
+  SENTIMENT_URL: "http://sentiment-service:8001"
+  RESUME_URL: "http://resume-service:8002"
+  IMAGE_URL: "http://image-service:8003"

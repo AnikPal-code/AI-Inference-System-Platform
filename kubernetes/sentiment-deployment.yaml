@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: sentiment-deployment
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: sentiment
+
+  template:
+    metadata:
+      labels:
+        app: sentiment
+
+    spec:
+      containers:
+      - name: sentiment
+        image: aiinferenceplatform-sentiment:latest
+
+        resources: 
+          requests:
+            cpu: "250m"
+            memory: "512Mi"
+
+          limits: 
+            cpu: "1000m"
+            memory: "2Gi"
+            
+        imagePullPolicy: Never
+
+        ports:
+        - containerPort: 8001
+
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8001
+
+          initialDelaySeconds: 10
+          periodSeconds: 5
+
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8001
+          initialDelaySeconds: 30
+          periodSeconds: 10

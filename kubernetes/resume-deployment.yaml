@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: resume-deployment
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: resume
+
+  template:
+    metadata:
+      labels:
+        app: resume
+
+    spec:
+      containers:
+      - name: resume
+        image: aiinferenceplatform-resume:latest
+
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+      
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+
+        imagePullPolicy: Never
+
+        ports:
+        - containerPort: 8002

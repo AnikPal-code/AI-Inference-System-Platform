@@ -1,0 +1,64 @@
+                 User
+                   │
+                   ▼
+          http://localhost:8000
+                API Gateway
+           ┌────────┼─────────┐
+           ▼        ▼         ▼
+     Sentiment   Resume    Image
+        AI          AI        AI
+
+
+                  Internet
+                      │
+                      ▼
+                  Ingress
+                      │
+                      ▼
+               Gateway Service
+                      │
+                      ▼
+                 Gateway Pod
+        ┌─────────────┼─────────────┐
+        ▼             ▼             ▼
+ Sentiment Pod   Resume Pod    Image Pod
+        │             │             │
+    Deployment    Deployment    Deployment
+
+
+
+                   Browser
+                      │
+                      ▼
+            http://localhost:30121
+                      │
+                Gateway Service
+                      │
+                 Gateway Pod
+         ┌────────────┼────────────┐
+         ▼            ▼            ▼
+ Sentiment Service Resume Service Image Service
+         │            │            │
+         ▼            ▼            ▼
+ Sentiment Pod   Resume Pod    Image Pod
+
+
+                      Browser
+                        │
+                        ▼
+                Gateway Service
+                        │
+         ┌──────────────┼──────────────┐
+         ▼              ▼              ▼
+     Gateway-1      Gateway-2      Gateway-3
+           │             │              │
+           └───────┬─────┴──────────────┘
+                   │
+                   ▼
+        ┌──────────┼──────────┐
+        ▼          ▼          ▼
+ Sentiment     Resume      Image
+   Service      Service     Service
+      │            │            │
+      ▼            ▼            ▼
+Sentiment-1    Resume-1     Image-1

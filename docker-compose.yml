@@ -1,0 +1,41 @@
+services:
+
+  gateway:
+    build:
+      context: .
+      dockerfile: backend/gateway/Dockerfile
+    container_name: gateway
+    ports:
+      - "8000:8000"
+    environment:
+      SENTIMENT_URL: http://sentiment:8001
+      RESUME_URL: http://resume:8002
+      IMAGE_URL: http://image:8003
+    depends_on:
+      - sentiment
+      - resume
+      - image
+
+  sentiment:
+    build:
+      context: .
+      dockerfile: backend/services/sentiment/Dockerfile
+    container_name: sentiment
+    ports:
+      - "8001:8001"
+
+  resume:
+    build:
+      context: .
+      dockerfile: backend/services/resume/Dockerfile
+    container_name: resume
+    ports:
+      - "8002:8002"
+
+  image:
+    build:
+      context: .
+      dockerfile: backend/services/image/Dockerfile
+    container_name: image
+    ports:
+      - "8003:8003"
