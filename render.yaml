@@ -1,0 +1,35 @@
+services:
+  # Gateway Service
+  - type: web
+    name: ai-gateway
+    env: docker
+    dockerfilePath: ./backend/gateway/Dockerfile
+    dockerContext: .
+    envVars:
+      - key: SENTIMENT_URL
+        value: https://ai-sentiment-service.onrender.com
+      - key: RESUME_URL
+        value: https://ai-resume-service.onrender.com
+      - key: IMAGE_URL
+        value: https://ai-image-service.onrender.com
+    
+  # Sentiment Service
+  - type: web
+    name: ai-sentiment-service
+    env: docker
+    dockerfilePath: ./backend/services/sentiment/Dockerfile
+    dockerContext: .
+    
+  # Resume Service
+  - type: web
+    name: ai-resume-service
+    env: docker
+    dockerfilePath: ./backend/services/resume/Dockerfile
+    dockerContext: .
+    
+  # Image Service
+  - type: web
+    name: ai-image-service
+    env: docker
+    dockerfilePath: ./backend/services/image/Dockerfile
+    dockerContext: .

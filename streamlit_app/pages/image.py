@@ -74,7 +74,7 @@ if uploaded_image:
         st.image(
             uploaded_image,
             caption="Uploaded Image",
-            use_column_width=True
+            width=None
         )
 
     with col2:
