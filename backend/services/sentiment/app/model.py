@@ -2,6 +2,7 @@
 # It loads the AI model via transformers and exposes
 # a single function to analyze the emotional tone
 from transformers import pipeline
+import torch
 
 _sentiment_pipeline = None
 
@@ -12,7 +13,8 @@ def get_pipeline():
     if _sentiment_pipeline is None:
         _sentiment_pipeline = pipeline(
             "sentiment-analysis",
-            model="distilbert-base-uncased-finetuned-sst-2-english"
+            model="distilbert-base-uncased-finetuned-sst-2-english",
+            framework="pt"  # Force PyTorch to avoid TensorFlow/Keras issues
         )
 
     return _sentiment_pipeline

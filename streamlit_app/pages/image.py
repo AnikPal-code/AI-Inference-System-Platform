@@ -1,10 +1,15 @@
 import streamlit as st
 import requests
+import os
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 # -----------------------------
 # Configuration
 # -----------------------------
-GATEWAY_URL = "http://localhost:8000"
+GATEWAY_URL = os.getenv("GATEWAY_URL", "http://localhost:8000")
 
 st.set_page_config(
     page_title="Image Classification",
@@ -12,35 +17,73 @@ st.set_page_config(
     layout="wide"
 )
 
-st.title("🖼 Image Classification")
-st.write(
-    "Upload an image and let the AI model classify it."
-)
+# Custom CSS
+st.markdown("""
+<style>
+    .image-header {
+        text-align: center;
+        padding: 1.5rem;
+        background: linear-gradient(135deg, #CD0000 0%, #FF4444 100%);
+        color: #EFEDE6;
+        border-radius: 10px;
+        margin-bottom: 2rem;
+    }
+    .result-box {
+        padding: 2rem;
+        border-radius: 10px;
+        background: linear-gradient(135deg, #CD0000 0%, #FF4444 100%);
+        color: #EFEDE6;
+        text-align: center;
+        margin: 1rem 0;
+    }
+    .stButton>button {
+        background-color: #CD0000;
+        color: #EFEDE6;
+    }
+    .stButton>button:hover {
+        background-color: #FF4444;
+    }
+</style>
+""", unsafe_allow_html=True)
 
-st.divider()
+st.markdown("""
+<div class="image-header">
+    <h1>🖼 Image Classification</h1>
+    <p>Upload any image and let our AI model identify what's in it</p>
+</div>
+""", unsafe_allow_html=True)
+
+st.markdown("### Upload Your Image")
+st.markdown("Supported formats: JPG, JPEG, PNG")
 
 uploaded_image = st.file_uploader(
-    "Upload Image",
-    type=["jpg", "jpeg", "png"]
+    "",
+    type=["jpg", "jpeg", "png"],
+    label_visibility="collapsed"
 )
 
 if uploaded_image:
 
-    col1, col2 = st.columns([1, 1])
+    st.success(f"✅ Image uploaded successfully: **{uploaded_image.name}**")
+    st.markdown("")
+
+    col1, col2 = st.columns([1, 1], gap="large")
 
     with col1:
+        st.markdown("#### 📷 Your Image")
         st.image(
             uploaded_image,
             caption="Uploaded Image",
-            use_container_width=True
+            use_column_width=True
         )
 
     with col2:
+        st.markdown("#### 🎯 Classification Result")
+        st.markdown("")
 
         if st.button(
-            "Classify Image",
-            type="primary",
-            use_container_width=True
+            "🔍 Classify Image",
+            type="primary"
         ):
 
             try:
@@ -65,31 +108,26 @@ if uploaded_image:
 
                     data = response.json()
 
-                    image_class = data.get("class", "Unknown")
-                    confidence = data.get("confidence", 0)
+                    image_class = data.get("label", "Unknown")
+                    confidence = data.get("score", 0)
 
-                    st.success("Prediction Complete")
+                    st.success("✅ Classification Complete!")
 
-                    st.divider()
+                    st.markdown("")
 
-                    metric1, metric2 = st.columns(2)
+                    st.markdown(f"""
+                    <div class="result-box">
+                        <h2 style="margin: 0; font-size: 2.5rem;">🎯</h2>
+                        <h3 style="margin-top: 1rem;">Predicted Class</h3>
+                        <h1 style="font-size: 2rem; margin: 0.5rem 0;">{image_class}</h1>
+                        <h3 style="margin-top: 1.5rem; opacity: 0.9;">Confidence: {confidence*100:.1f}%</h3>
+                    </div>
+                    """, unsafe_allow_html=True)
 
-                    with metric1:
-                        st.metric(
-                            "Predicted Class",
-                            image_class
-                        )
+                    st.progress(float(confidence), text=f"Model Confidence: {confidence*100:.2f}%")
 
-                    with metric2:
-                        st.metric(
-                            "Confidence",
-                            f"{confidence*100:.2f}%"
-                        )
-
-                    st.progress(float(confidence))
-
-                    st.subheader("Raw Response")
-                    st.json(data)
+                    with st.expander("📊 View Raw API Response"):
+                        st.json(data)
 
                 else:
 

@@ -1,10 +1,15 @@
 import streamlit as st
 import requests
+import os
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 # -----------------------------
 # Configuration
 # -----------------------------
-GATEWAY_URL = "http://localhost:8000"
+GATEWAY_URL = os.getenv("GATEWAY_URL", "http://localhost:8000")
 
 st.set_page_config(
     page_title="Resume Parser",
@@ -12,27 +17,63 @@ st.set_page_config(
     layout="wide"
 )
 
-st.title("📄 Resume Parser")
-st.write(
-    "Upload a resume (PDF) to extract important information."
-)
+# Custom CSS
+st.markdown("""
+<style>
+    .resume-header {
+        text-align: center;
+        padding: 1.5rem;
+        background: linear-gradient(135deg, #CD0000 0%, #FF4444 100%);
+        color: #EFEDE6;
+        border-radius: 10px;
+        margin-bottom: 2rem;
+    }
+    .extract-box {
+        padding: 1.5rem;
+        border-radius: 10px;
+        background: #EFEDE6;
+        border-left: 4px solid #CD0000;
+    }
+    .stButton>button {
+        background-color: #CD0000;
+        color: #EFEDE6;
+    }
+    .stButton>button:hover {
+        background-color: #FF4444;
+    }
+</style>
+""", unsafe_allow_html=True)
 
-st.divider()
+st.markdown("""
+<div class="resume-header">
+    <h1>📄 Resume Parser</h1>
+    <p>Extract text content from PDF resumes instantly</p>
+</div>
+""", unsafe_allow_html=True)
+
+st.markdown("### Upload Your Resume")
+st.markdown("Upload a PDF file to extract all textual content.")
 
 uploaded_file = st.file_uploader(
-    "Upload Resume",
-    type=["pdf"]
+    "",
+    type=["pdf"],
+    label_visibility="collapsed"
 )
 
 if uploaded_file:
 
-    st.success(f"Uploaded: {uploaded_file.name}")
+    st.success(f"✅ Resume uploaded successfully: **{uploaded_file.name}**")
+    
+    st.markdown("")
+    
+    col1, col2, col3 = st.columns([2, 1, 2])
+    with col2:
+        extract_btn = st.button(
+            "📄 Extract Text",
+            type="primary"
+        )
 
-    if st.button(
-        "Extract Information",
-        type="primary",
-        use_container_width=True
-    ):
+    if extract_btn:
 
         try:
 
@@ -56,69 +97,46 @@ if uploaded_file:
 
                 data = response.json()
 
-                st.success("Extraction Complete")
+                st.success("✅ Extraction Complete!")
 
-                st.divider()
+                st.markdown("")
 
-                col1, col2 = st.columns(2)
+                extracted_text = data.get("extracted_text", "")
 
-                with col1:
-
-                    st.subheader("👤 Personal Information")
-
-                    st.text_input(
-                        "Name",
-                        value=data.get("name", ""),
-                        disabled=True
+                if extracted_text:
+                    st.markdown("### 📄 Extracted Resume Content")
+                    
+                    # Character and word count
+                    char_count = len(extracted_text)
+                    word_count = len(extracted_text.split())
+                    
+                    col1, col2, col3 = st.columns(3)
+                    with col1:
+                        st.metric("📊 Characters", f"{char_count:,}")
+                    with col2:
+                        st.metric("📝 Words", f"{word_count:,}")
+                    with col3:
+                        st.metric("📄 Pages", "Extracted")
+                    
+                    st.markdown("")
+                    
+                    st.text_area(
+                        "Resume Content",
+                        value=extracted_text,
+                        height=500,
+                        disabled=True,
+                        label_visibility="collapsed"
                     )
-
-                    st.text_input(
-                        "Email",
-                        value=data.get("email", ""),
-                        disabled=True
+                    
+                    # Download button
+                    st.download_button(
+                        label="💾 Download as Text File",
+                        data=extracted_text,
+                        file_name=f"{uploaded_file.name.replace('.pdf', '')}_extracted.txt",
+                        mime="text/plain"
                     )
-
-                with col2:
-
-                    st.subheader("🛠 Skills")
-
-                    skills = data.get("skills", [])
-
-                    if skills:
-
-                        for skill in skills:
-                            st.badge(skill)
-
-                    else:
-                        st.info("No skills found.")
-
-                st.divider()
-
-                st.subheader("🎓 Education")
-
-                education = data.get("education", [])
-
-                if education:
-
-                    for item in education:
-                        st.write(f"• {item}")
-
                 else:
-                    st.info("No education information found.")
-
-                st.divider()
-
-                st.subheader("💼 Experience")
-
-                experience = data.get("experience", [])
-
-                if experience:
-
-                    for item in experience:
-                        st.write(f"• {item}")
-
-                else:
-                    st.info("No experience found.")
+                    st.warning("⚠️ No text could be extracted from the PDF.")
 
             else:
 
