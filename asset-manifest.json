@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/AI-Inference-System-Platform/static/css/main.98e04df9.css",
-    "main.js": "/AI-Inference-System-Platform/static/js/main.71aa1da6.js",
+    "main.js": "/AI-Inference-System-Platform/static/js/main.384edfb2.js",
     "index.html": "/AI-Inference-System-Platform/index.html",
     "main.98e04df9.css.map": "/AI-Inference-System-Platform/static/css/main.98e04df9.css.map",
-    "main.71aa1da6.js.map": "/AI-Inference-System-Platform/static/js/main.71aa1da6.js.map"
+    "main.384edfb2.js.map": "/AI-Inference-System-Platform/static/js/main.384edfb2.js.map"
   },
   "entrypoints": [
     "static/css/main.98e04df9.css",
-    "static/js/main.71aa1da6.js"
+    "static/js/main.384edfb2.js"
   ]
 }
