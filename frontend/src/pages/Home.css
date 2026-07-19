@@ -1,0 +1,132 @@
+.home {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+}
+
+.hero {
+  text-align: center;
+  padding: 3rem 0;
+  background: linear-gradient(135deg, #CD0000 0%, #FF4444 100%);
+  color: #EFEDE6;
+  border-radius: 15px;
+  margin-bottom: 3rem;
+  box-shadow: 0 5px 15px rgba(205, 0, 0, 0.3);
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  font-size: 1.3rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.services {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.service-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(205, 0, 0, 0.2);
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+  text-decoration: none;
+  color: #333;
+}
+
+.service-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 12px rgba(205, 0, 0, 0.3);
+}
+
+.service-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.service-card h2 {
+  color: #CD0000;
+  margin-bottom: 1rem;
+}
+
+.service-card p {
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.service-card ul {
+  text-align: left;
+  margin-left: 1.5rem;
+  line-height: 1.8;
+}
+
+.architecture {
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(205, 0, 0, 0.2);
+  margin-top: 3rem;
+}
+
+.architecture h2 {
+  color: #CD0000;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.arch-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.arch-diagram {
+  background: #EFEDE6;
+  padding: 2rem;
+  border-radius: 10px;
+  font-family: monospace;
+  white-space: pre;
+  overflow-x: auto;
+  border-left: 4px solid #CD0000;
+}
+
+.arch-features ul {
+  list-style: none;
+  padding: 0;
+}
+
+.arch-features li {
+  padding: 0.8rem;
+  margin-bottom: 0.5rem;
+  background: #EFEDE6;
+  border-radius: 5px;
+  border-left: 3px solid #CD0000;
+}
+
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+
+  .services {
+    grid-template-columns: 1fr;
+  }
+
+  .arch-content {
+    grid-template-columns: 1fr;
+  }
+}

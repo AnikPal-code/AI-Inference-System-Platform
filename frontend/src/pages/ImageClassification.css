@@ -1,0 +1,128 @@
+.image-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.image-preview {
+  background: #EFEDE6;
+  padding: 1.5rem;
+  border-radius: 10px;
+  margin-top: 1.5rem;
+  border-left: 4px solid #CD0000;
+}
+
+.image-preview h4 {
+  color: #CD0000;
+  margin-bottom: 1rem;
+}
+
+.image-preview img {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.classify-btn {
+  background: linear-gradient(135deg, #CD0000 0%, #FF4444 100%);
+  color: #EFEDE6;
+  border: none;
+  padding: 1rem 3rem;
+  font-size: 1.1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+  margin-top: 1.5rem;
+  font-weight: 600;
+  width: 100%;
+}
+
+.classify-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(205, 0, 0, 0.4);
+}
+
+.classify-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.result-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(205, 0, 0, 0.2);
+}
+
+.result-content h4 {
+  color: #CD0000;
+  margin-bottom: 1.5rem;
+}
+
+.result-box {
+  background: linear-gradient(135deg, #CD0000 0%, #FF4444 100%);
+  padding: 3rem 2rem;
+  border-radius: 15px;
+  color: #EFEDE6;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.result-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.result-class {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin: 1rem 0;
+}
+
+.result-confidence {
+  font-size: 1.5rem;
+  opacity: 0.9;
+}
+
+.raw-response {
+  margin-top: 2rem;
+  background: #EFEDE6;
+  padding: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.raw-response summary {
+  font-weight: 600;
+  color: #CD0000;
+  padding: 0.5rem;
+}
+
+.raw-response pre {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .result-class {
+    font-size: 1.8rem;
+  }
+
+  .result-confidence {
+    font-size: 1.2rem;
+  }
+}

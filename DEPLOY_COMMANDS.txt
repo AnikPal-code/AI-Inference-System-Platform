@@ -1,0 +1,102 @@
+=====================================
+GITHUB PAGES DEPLOYMENT - QUICK GUIDE
+=====================================
+
+STEP 1: CREATE GITHUB REPOSITORY
+---------------------------------
+1. Go to: https://github.com/new
+2. Repository name: AI-Inference-Platform
+3. Make it PUBLIC
+4. Click "Create repository"
+
+
+STEP 2: PUSH CODE TO GITHUB
+---------------------------------
+cd "c:\Users\Asus\OneDrive\Desktop\AI Inference Platform"
+
+git init
+git add .
+git commit -m "Initial commit"
+git remote add origin https://github.com/YOUR-USERNAME/AI-Inference-Platform.git
+git branch -M main
+git push -u origin main
+
+(Replace YOUR-USERNAME with your GitHub username!)
+
+
+STEP 3: INSTALL GH-PAGES
+---------------------------------
+cd frontend
+npm install --save-dev gh-pages
+
+
+STEP 4: EDIT package.json
+---------------------------------
+Add at the top:
+  "homepage": "https://YOUR-USERNAME.github.io/AI-Inference-Platform",
+
+Add in "scripts":
+  "predeploy": "npm run build",
+  "deploy": "gh-pages -d build"
+
+
+STEP 5: DEPLOY!
+---------------------------------
+npm run deploy
+
+(Wait 2-3 minutes)
+
+
+STEP 6: ENABLE GITHUB PAGES
+---------------------------------
+1. Go to repository on GitHub
+2. Settings → Pages (left sidebar)
+3. Source: gh-pages branch
+4. Save
+
+
+STEP 7: VISIT YOUR SITE
+---------------------------------
+https://YOUR-USERNAME.github.io/AI-Inference-Platform
+
+
+TO UPDATE LATER:
+---------------------------------
+cd frontend
+npm run deploy
+
+(That's it! Updates in 1-2 minutes)
+
+
+YOUR BACKEND:
+---------------------------------
+Frontend is on GitHub Pages (static files)
+Backend needs separate hosting:
+- Hugging Face Spaces (free)
+- Render (free tier)
+- Railway ($5 credit)
+
+Update frontend .env with backend URL:
+REACT_APP_GATEWAY_URL=https://your-backend.com
+
+
+TROUBLESHOOTING:
+---------------------------------
+Blank page? 
+→ Check "homepage" in package.json
+
+Backend not working?
+→ Deploy backend separately
+→ Update REACT_APP_GATEWAY_URL
+→ Redeploy: npm run deploy
+
+Changes not showing?
+→ Wait 2-3 minutes
+→ Hard refresh (Ctrl+Shift+R)
+
+
+NEED HELP?
+---------------------------------
+Read: GITHUB_PAGES_DEPLOY.md (full guide)
+
+=====================================
