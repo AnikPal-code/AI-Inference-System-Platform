@@ -2,6 +2,17 @@ import os
 import asyncio
 import httpx
 
+from dotenv import load_dotenv
+from pathlib import Path
+import os
+
+
+dotenv_path = Path(__file__).resolve().parents[2] / ".env"
+print("Looking for .env at:", dotenv_path)
+print("Exists:", dotenv_path.exists())
+
+load_dotenv(dotenv_path)
+
 SENTIMENT_URL = os.getenv("SENTIMENT_URL")
 RESUME_URL = os.getenv("RESUME_URL")
 IMAGE_URL = os.getenv("IMAGE_URL")
