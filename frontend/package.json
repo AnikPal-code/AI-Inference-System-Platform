@@ -1,7 +1,7 @@
 {
   "name": "ai-inference-frontend",
   "version": "1.0.0",
-  "homepage": "https://YOUR-USERNAME.github.io/AI-Inference-Platform",
+  "homepage": "https://AnikPal-code.github.io/AI-Inference-System-Platform",
   "private": true,
   "dependencies": {
     "axios": "^1.6.2",
