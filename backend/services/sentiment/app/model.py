@@ -14,7 +14,8 @@ def get_pipeline():
         _sentiment_pipeline = pipeline(
             "sentiment-analysis",
             model="distilbert-base-uncased-finetuned-sst-2-english",
-            framework="pt"  # Force PyTorch to avoid TensorFlow/Keras issues
+            framework="pt",
+            device=-1
         )
 
     return _sentiment_pipeline
